@@ -72,19 +72,22 @@ class RailsRelatedFilesHelper:
       controller = os.path.join(os.path.split(working_directory_base)[0], controller)
 
     walkers = [
-      'app/models/'             + model      + '**',
-      'app/models/**/'          + model      + '**',
-      'app/views/'              + working_directory_base + '/**',
-      'app/helpers/'            + controller + '**',
-      'app/helpers/**/'         + controller + '**',
-      'app/assets/javascripts/' + model      + '**',
-      'app/assets/stylesheets/' + model      + '**',
-      'app/controllers/'        + controller + '**'
-      'app/controllers/**/'     + controller + '**'
-      'test/'                   + controller + '**'
-      'test/**/'                + controller + '**'
-      'spec/'                   + controller + '**'
-      'spec/**/'                + controller + '**'
+      'app/models/'                   + model      + '**',
+      'app/models/**/'                + model      + '**',
+      'app/views/'                    + working_directory_base + '/**',
+      'app/views/'                    + working_directory_base + '/../shared/**',
+      'app/helpers/'                  + controller + '**',
+      'app/helpers/**/'               + controller + '**',
+      'app/assets/javascripts/'       + model      + '**',
+      'app/assets/javascripts/views/' + model      + '**',
+      'app/assets/stylesheets/views/' + model      + '**',
+      'app/assets/stylesheets/'       + model      + '**',
+      'app/controllers/'              + controller + '**'
+      'app/controllers/**/'           + controller + '**'
+      'test/'                         + controller + '**'
+      'test/**/'                      + controller + '**'
+      'spec/'                         + controller + '**'
+      'spec/**/'                      + controller + '**'
     ]
 
     return RailsRelatedFilesHelper.get_files_while_walking(app_folder, walkers)
