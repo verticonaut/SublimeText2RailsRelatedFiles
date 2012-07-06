@@ -46,8 +46,8 @@ class RailsRelatedFilesHelper:
     walkers = [
       'app/models/'          + model      + '*',
       'app/models/**/'       + model      + '*',
-      'app/helpers/'         + controller + '**',
-      'app/helpers/**/'      + controller + '**',
+      'app/helpers/'         + controller + '_helper**',
+      'app/helpers/**/'      + controller + '_helper**',
       'app/views/'           + controller + '/**',
       'app/views/**/'        + controller + '/**',
       'test/'                + controller + '**',
@@ -76,12 +76,12 @@ class RailsRelatedFilesHelper:
       'app/models/**/'                + model      + '**',
       'app/views/'                    + working_directory_base + '/**',
       'app/views/'                    + working_directory_base + '/../shared/**',
-      'app/helpers/'                  + controller + '**',
-      'app/helpers/**/'               + controller + '**',
-      'app/assets/javascripts/'       + model      + '**',
-      'app/assets/javascripts/views/' + model      + '**',
-      'app/assets/stylesheets/views/' + model      + '**',
-      'app/assets/stylesheets/'       + model      + '**',
+      'app/helpers/'                  + working_directory_base + '_helper**',
+      'app/helpers/**/'               + working_directory_base + '_helper**',
+      'app/assets/javascripts/'       + working_directory_base      + '/**',
+      'app/assets/javascripts/views/' + working_directory_base      + '/**',
+      'app/assets/stylesheets/'       + working_directory_base      + '/**',
+      'app/assets/stylesheets/views/' + working_directory_base      + '/**',
       'app/controllers/'              + controller + '**'
       'app/controllers/**/'           + controller + '**'
       'test/'                         + controller + '**'
