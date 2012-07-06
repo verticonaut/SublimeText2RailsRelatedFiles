@@ -78,15 +78,16 @@ class RailsRelatedFilesHelper:
       'app/views/'                    + working_directory_base + '/../shared/**',
       'app/helpers/'                  + working_directory_base + '_helper**',
       'app/helpers/**/'               + working_directory_base + '_helper**',
-      'app/assets/javascripts/'       + working_directory_base      + '/**',
-      'app/assets/javascripts/views/' + working_directory_base      + '/**',
-      'app/assets/stylesheets/'       + working_directory_base      + '/**',
-      'app/assets/stylesheets/views/' + working_directory_base      + '/**',
-      'app/controllers/'              + controller + '**'
-      'app/controllers/**/'           + controller + '**'
-      'test/'                         + controller + '**'
-      'test/**/'                      + controller + '**'
-      'spec/'                         + controller + '**'
+      'app/assets/javascripts/'       + working_directory_base + '/**',
+      'app/assets/javascripts/views/' + working_directory_base + '/**',
+      'app/assets/stylesheets/'       + working_directory_base + '/**',
+      'app/assets/stylesheets/views/' + working_directory_base + '/**',
+      'app/controllers/'              + working_directory_base + '**',
+      'app/controllers/'              + controller + '**',
+      'app/controllers/**/'           + controller + '**',
+      'test/'                         + controller + '**',
+      'test/**/'                      + controller + '**',
+      'spec/'                         + controller + '**',
       'spec/**/'                      + controller + '**'
     ]
 
@@ -261,6 +262,7 @@ class RailsRelatedFilesCommand(sublime_plugin.TextCommand):
         }.get(app_sub_directory)
 
         self.files = func(*args)
+        # TODO: sort files here: model, controller, helper, view, javascripts, stylesheets
 
         if not self.files:
           self.files = ['Rails Related Files: Nothing found...']

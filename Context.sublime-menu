@@ -20,5 +20,10 @@
     { "command": "rails_related_files", "args": {"index": 18 }},
     { "command": "rails_related_files", "args": {"index": 19 }},
     { "command": "rails_related_files", "args": {"index": 20 }},
+    { "command": "rails_related_files", "args": {"index": 21 }},
+    { "command": "rails_related_files", "args": {"index": 22 }},
+    { "command": "rails_related_files", "args": {"index": 23 }},
+    { "command": "rails_related_files", "args": {"index": 24 }},
+    { "command": "rails_related_files", "args": {"index": 25 }},
     { "caption": "-", "id": "end" }
 ]
