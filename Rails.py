@@ -50,6 +50,8 @@ class RailsRelatedFilesHelper:
       'app/helpers/**/'      + controller + '_helper**',
       'app/views/'           + controller + '/**',
       'app/views/**/'        + controller + '/**',
+      'app/assets/javascripts/**/' + controller + '/**',
+      'app/assets/stylesheets/**/' + controller + '/**',
       'test/'                + controller + '**',
       'test/**/'             + controller + '**',
       'spec/'                + controller + '**',
@@ -93,6 +95,75 @@ class RailsRelatedFilesHelper:
 
     return RailsRelatedFilesHelper.get_files_while_walking(app_folder, walkers)
 
+  @staticmethod
+  def for_assets_javascripts(app_folder, working_directory):
+
+    working_directory_base = os.path.basename(working_directory) #if app/views/posts it should return "posts"
+    model                  = Inflector(English).singularize(os.path.basename(working_directory_base)).lower() # should return "post"
+    namespace_directory    = RailsRelatedFilesHelper.get_namespace_directory(working_directory) #should return none
+    controller = model
+
+    if namespace_directory:
+      working_directory_base = namespace_directory
+
+      controller = os.path.join(os.path.split(working_directory_base)[0], controller)
+
+    walkers = [
+      'app/models/'                   + model      + '**',
+      'app/models/**/'                + model      + '**',
+      'app/views/'                    + working_directory_base + '/**',
+      'app/views/'                    + working_directory_base + '/../shared/**',
+      'app/helpers/'                  + working_directory_base + '_helper**',
+      'app/helpers/**/'               + working_directory_base + '_helper**',
+      'app/assets/javascripts/'       + working_directory_base + '/**',
+      'app/assets/javascripts/views/' + working_directory_base + '/**',
+      'app/assets/stylesheets/'       + working_directory_base + '/**',
+      'app/assets/stylesheets/views/' + working_directory_base + '/**',
+      'app/controllers/'              + working_directory_base + '**',
+      'app/controllers/'              + controller + '**',
+      'app/controllers/**/'           + controller + '**',
+      'test/'                         + controller + '**',
+      'test/**/'                      + controller + '**',
+      'spec/'                         + controller + '**',
+      'spec/**/'                      + controller + '**'
+    ]
+
+    return RailsRelatedFilesHelper.get_files_while_walking(app_folder, walkers)
+
+  @staticmethod
+  def for_assets_stylesheets(app_folder, working_directory):
+
+    working_directory_base = os.path.basename(working_directory) #if app/views/posts it should return "posts"
+    model                  = Inflector(English).singularize(os.path.basename(working_directory_base)).lower() # should return "post"
+    namespace_directory    = RailsRelatedFilesHelper.get_namespace_directory(working_directory) #should return none
+    controller = model
+
+    if namespace_directory:
+      working_directory_base = namespace_directory
+
+      controller = os.path.join(os.path.split(working_directory_base)[0], controller)
+
+    walkers = [
+      'app/models/'                   + model      + '**',
+      'app/models/**/'                + model      + '**',
+      'app/views/'                    + working_directory_base + '/**',
+      'app/views/'                    + working_directory_base + '/../shared/**',
+      'app/helpers/'                  + working_directory_base + '_helper**',
+      'app/helpers/**/'               + working_directory_base + '_helper**',
+      'app/assets/javascripts/'       + working_directory_base + '/**',
+      'app/assets/javascripts/views/' + working_directory_base + '/**',
+      'app/assets/stylesheets/'       + working_directory_base + '/**',
+      'app/assets/stylesheets/views/' + working_directory_base + '/**',
+      'app/controllers/'              + working_directory_base + '**',
+      'app/controllers/'              + controller + '**',
+      'app/controllers/**/'           + controller + '**',
+      'test/'                         + controller + '**',
+      'test/**/'                      + controller + '**',
+      'spec/'                         + controller + '**',
+      'spec/**/'                      + controller + '**'
+    ]
+
+    return RailsRelatedFilesHelper.get_files_while_walking(app_folder, walkers)
   @staticmethod
   def for_models(app_folder, working_directory, file_name_base_no_ext):
 
@@ -196,7 +267,7 @@ class RailsRelatedFilesHelper:
 
 class RailsRelatedFilesCommand(sublime_plugin.TextCommand):
 
-  APP_FOLDERS = ['app/controllers', 'app/models', 'app/views', 'test', 'spec'] #assets, helpers
+  APP_FOLDERS = ['app/controllers', 'app/models', 'app/views', 'test', 'spec', 'app/assets/stylesheets/views', 'app/assets/javascripts/views'] #assets, helpers
 
   def run(self, edit, index):
 
@@ -258,7 +329,9 @@ class RailsRelatedFilesCommand(sublime_plugin.TextCommand):
           'app/views'      : (RailsRelatedFilesHelper.for_views,       (self.rails_root_directory, working_directory,)),
           'app/models'     : (RailsRelatedFilesHelper.for_models,      (self.rails_root_directory, working_directory, file_name_base_no_ext,)),
           'test'           : (RailsRelatedFilesHelper.for_tests,       (self.rails_root_directory, working_directory, file_name_base_no_ext,)),
-          'spec'           : (RailsRelatedFilesHelper.for_tests,       (self.rails_root_directory, working_directory, file_name_base_no_ext,))
+          'spec'           : (RailsRelatedFilesHelper.for_tests,       (self.rails_root_directory, working_directory, file_name_base_no_ext,)),
+          'app/assets/javascripts/views'  : (RailsRelatedFilesHelper.for_assets_javascripts, (self.rails_root_directory, working_directory,)),
+          'app/assets/stylesheets/views'  : (RailsRelatedFilesHelper.for_assets_stylesheets, (self.rails_root_directory, working_directory,)),
         }.get(app_sub_directory)
 
         self.files = func(*args)
